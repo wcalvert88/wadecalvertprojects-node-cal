@@ -59,7 +59,20 @@
         </table>
     </form>
     <ul>
+        <% if (results) { %>
+        <% for (var result in results) { %>
+            <div>
+            <li style="opacity: 0;">]Event Id: <span><%= results[result].id %></span></li>
+            <li>Event Name: <%= results[result].summary %></li>
+            <li>Event Description: <%= results[result].description %></li>
+            <li>Event Place: <%= results[result].location %></li>
+            <li>Event Start DateTime: <%= results[result].start.dateTime %></li>
+            <li>Event End DateTime: <%= results[result].end.dateTime %></li>
+            <li><input type="button" value="Change"><input type="button" class="resultsDelete" value="Delete"></li>
+            </div>
+        <% } %>
         
+        <% } %>
             
     </ul>
 </body>

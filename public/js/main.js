@@ -12,7 +12,7 @@ $(document).ready(function () {
       console.log("new EventId", eventId);
       $.ajax({
         type: "DELETE",
-        url: "/searchEvents.ejs",
+        url: "./searchEvents.ejs",
         data: {
           calendarID: 'primary',
           eventId: eventId,
