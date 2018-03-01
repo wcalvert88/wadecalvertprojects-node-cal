@@ -5,10 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Add Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="./js/mainAdd.js"></script>
 </head>
 <body>
-    
+    <header><% include ./headers/header.ejs %></header>
+    <h1><%= title %></h1>
+    <form name="form1" method="POST" action="/calendarPg.ejs">
+        <div>Event Name: <input type="text" id="ename" name="ename"></div>
+        <div>Event Desc: <input type="text" id="edesc" name="edesc"></div>
+        <div>Event Place: <input type="text" id="eplace" name="eplace"></div>
+        <div>Event Start Time: <input type="time" id="stime" name="stime"></div>
+        <div>Event End Time: <input type="time" id="etime" name="etime"></div>
+        <div>Event Start Date: <input type="date" id="sedate" name="sedate"></div>
+        <div>Event End Date: <input type="date" id="edate" name="edate"></div>
+        <input type="submit" id="searchBtn" value="Search">
+    </form>
 </body>
 </html>

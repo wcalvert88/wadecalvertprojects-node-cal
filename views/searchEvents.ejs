@@ -13,14 +13,12 @@
 
 <body>
     <header>
-        <% include /headers/header.ejs %>
-
-
+        <% include ./headers/header.ejs %>
     </header>
     <h1>
-        Find Events
+        <%= title %>
     </h1>
-    <form name="form2" method="POST" action="/searchEvents.ejs">
+    <form name="form2" method="GET" action="/searchEvents.ejs">
         <table>
             <tr>
                 <td>Event Name (Optional)</td>
@@ -60,7 +58,6 @@
 
         </table>
     </form>
-    <div class="deleteThis">Delete This</div>
     <ul>
         
             
