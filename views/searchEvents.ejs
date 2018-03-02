@@ -19,32 +19,33 @@
         <%= title %>
     </h1>
     <form name="form2" method="GET" action="/searchEvents.ejs">
-        <div>Event Name (Optional)
-            <input type="text" id="ename" name="ename"></div>
-        <div>Event Start Time
+        <div><span class="formdiv">Event Name (Optional)</span>
+            <input type="text" id="ename" name="ename" placeholder="Event Name (Optional)"></div>
+        <div><span class="formdiv">Event Start Time </span>
             <input type="time" id="stime" name="stime"></div>
-        <div>Event End Time
+        <div><span class="formdiv">Event End Time </span>
             <input type="time" id="etime" name="etime"></div>
-        <div>Event Start Date
+        <div><span class="formdiv">Event Start Date </span>
             <input type="date" id="sedate" name="sedate"></div>
-        <div>Event End Date
+        <div><span class="formdiv">Event End Date </span>
             <input type="date" id="edate" name="edate"></div>
-        <div><input type="submit" value="Search"></div>
+        <div><button type="submit" value="Search">Search</button></div>
     </form>
-    <ul>
+    
+    <div class="resultsSection">
         <% if (results) { %>
         <% for (var result in results) { %>
-            <div>
-            <li style="opacity: 0;">]Event Id: <span><%= results[result].id %></span></li>
-            <li>Event Name: <%= results[result].summary %></li>
-            <li>Event Description: <%= results[result].description %></li>
-            <li>Event Place: <%= results[result].location %></li>
-            <li>Event Start DateTime: <%= results[result].start.dateTime %></li>
-            <li>Event End DateTime: <%= results[result].end.dateTime %></li>
-            <li><input type="button" class="resultsDelete" value="Delete"></li>
-            </div>
+            <ul>
+                <li style="opacity: 0;"><span class="resultsInfo">Event Id: </span><span><%= results[result].id %></span></li>
+                <li><span class="resultsInfo">Event Name: </span><%= results[result].summary %></li>
+                <li><span class="resultsInfo">Event Description: </span><%= results[result].description %></li>
+                <li><span class="resultsInfo">Event Place: </span><%= results[result].location %></li>
+                <li><span class="resultsInfo">Event Start DateTime: </span><%= results[result].start.dateTime %></li>
+                <li><span class="resultsInfo">Event End DateTime: </span><%= results[result].end.dateTime %></li>
+                <li style="margin-bottom: 10px;"><button type="button" class="resultsDelete" value="Delete">Delete</button></li>
+            </ul>
         <% }} %>
-    </ul>
+    </div>
 </body>
 
 </html>

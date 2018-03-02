@@ -10,6 +10,7 @@ function setEventId(that) {
   return eventId
 }
 
+
 $(document).ready(function () {
   $(".resultsDelete").click(function () {
     setEventId($(this));

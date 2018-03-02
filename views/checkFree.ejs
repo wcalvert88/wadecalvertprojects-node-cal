@@ -14,21 +14,21 @@
     <header><% include ./headers/header.ejs %></header>
     <h1><%= title %></h1>
     <form name="form3" method="GET" action="/checkFree.ejs">
-        <div>Event Start Time
+        <div><span class="formdiv">Event Start Time </span>
             <input type="time" id="stime" name="stime"></div>
-        <div>Event End Time
+        <div><span class="formdiv">Event End Time </span>
             <input type="time" id="etime" name="etime"></div>
-        <div>Event Start Date
+        <div><span class="formdiv">Event Start Date </span>
             <input type="date" id="sedate" name="sedate"></div>
-        <div>Event End Date
+        <div><span class="formdiv">Event End Date </span>
             <input type="date" id="edate" name="edate"></div>
-        <div><input type="submit" value="Check Availability"></div>
+        <div><button type="submit" value="Check Availability">Check Availability</button></div>
     </form>
-    <div>
+    <div class="resultsSection">
     <% if (results) { %>
         <% for (var result in results) { %>
-            <div>Busy from: <%= results[result].start %></div>
-            <div>to: <%= results[result].end %><br /><br /></div>
+            <div><span class="resultsInfo">Busy from: </span><%= new Date(results[result].start) %></div>
+            <div><span class="resultsInfo">to: </span><%= new Date(results[result].end) %><br /><br /></div>
         <% } %>
     <% } %>
     </div>

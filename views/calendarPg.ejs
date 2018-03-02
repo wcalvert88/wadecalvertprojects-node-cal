@@ -14,14 +14,14 @@
     <header><% include ./headers/header.ejs %></header>
     <h1><%= title %></h1>
     <form name="form1" method="POST" action="/calendarPg.ejs">
-        <div>Event Name: <input type="text" id="ename" name="ename"></div>
-        <div>Event Desc: <input type="text" id="edesc" name="edesc"></div>
-        <div>Event Place: <input type="text" id="eplace" name="eplace"></div>
-        <div>Event Start Time: <input type="time" id="stime" name="stime"></div>
-        <div>Event End Time: <input type="time" id="etime" name="etime"></div>
-        <div>Event Start Date: <input type="date" id="sedate" name="sedate"></div>
-        <div>Event End Date: <input type="date" id="edate" name="edate"></div>
-        <input type="submit" id="searchBtn" value="Search">
+        <div><span class="formdiv">Event Name (Optional): </span><input type="text" id="ename" name="ename" placeholder="Event Name (Optional)"></div>
+        <div><span class="formdiv">Event Description (Optional): </span><input type="text" id="edesc" name="edesc" placeholder="Event Description (Optional)"></div>
+        <div><span class="formdiv">Event Place (Optional): </span><input type="text" id="eplace" name="eplace" placeholder="Event Place (Optional)"></div>
+        <div><span class="formdiv">Event Start Time: </span><input type="time" id="stime" name="stime"></div>
+        <div><span class="formdiv">Event End Time: </span><input type="time" id="etime" name="etime"></div>
+        <div><span class="formdiv">Event Start Date: </span><input type="date" id="sedate" name="sedate"></div>
+        <div><span class="formdiv">Event End Date: </span><input type="date" id="edate" name="edate"></div>
+        <button type="submit" id="searchBtn" value="Search">Search</button>
     </form>
 </body>
 </html>
