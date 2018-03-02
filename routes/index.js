@@ -34,11 +34,11 @@ router.post('/calendarPg.ejs', function (req, res) {
 })
 
 router.get('/search', function (req, res, next) {
-    res.render('searchEvents.ejs', { title: 'Search Events' });
+    res.render('searchEvents.ejs', { title: 'Search Events', results: '' });
 });
-router.get('/searchEvents.ejs', function(req,res,next) {
-    res.render('searchEvents.ejs', {title: 'Search Events', results: ''})
-})
+// router.get('/searchEvents.ejs', function(req,res,next) {
+//     res.render('searchEvents.ejs', {title: 'Search Events', results: ''})
+// })
 router.get('/searchEvents.ejs', function (req, res) {
     console.log("req", req.query)
     console.log("req.query.sedate", req.query.sedate)
@@ -83,9 +83,9 @@ router.delete('/searchEvents.ejs', function (req, res) {
 router.get('/checkFree', function (req, res, next) {
     res.render('checkFree.ejs', { title: 'Check Availability', results : '' });
 });
-router.get('/checkFree.ejs', function(req,res,next) {
-    res.render('checkFree.ejs', {title: 'Check Availability', results: ''});
-})
+// router.get('/checkFree.ejs', function(req,res,next) {
+//     res.render('checkFree.ejs', {title: 'Check Availability', results: ''});
+// })
 router.get('/checkFree.ejs', function (req, res) {
     console.log("Checking Availability")
     cal.FreeBusy.query('primary', {

@@ -1,4 +1,4 @@
-//LIST OF CALENDAR FUNCTIONS
+//LIST OF CALENDAR FUNCTIONS  REFERENCE ONLY
 
 const CONFIG = require('./config/Settings/settings');
 const CalendarAPI = require('node-google-calendar');
