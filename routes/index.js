@@ -97,7 +97,7 @@ router.get('/checkFree.ejs', function (req, res) {
         .then(resp => {
             console.log('List of busy timings with events within defined time range: ');
             console.log(resp);
-            res.render("checkFree", { title: "Check Availability", results: resp })
+            res.render("checkFree", { title: "Check Availability", results: (resp ? resp : '') })
         })
         .catch(err => {
             console.log('Error: checkBusy -' + err.message);
