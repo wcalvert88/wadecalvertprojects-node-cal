@@ -1,7 +1,7 @@
 function setEventId(that) {
   console.log("this", that);
   console.log("this parent parent", that.parent().parent());
-  var parentDiv = that.parent().parent().parent();
+  var parentDiv = that.parent().parent();
   console.log("parentDiv", parentDiv);
   console.log("parentDiv.span stuff", parentDiv.find("span").text());
   eventId = parentDiv.find("span").text();

@@ -105,4 +105,3 @@ router.get('/checkFree.ejs', function (req, res) {
     
 })
 module.exports = router;
-
