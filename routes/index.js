@@ -36,7 +36,9 @@ router.post('/calendarPg.ejs', function (req, res) {
 router.get('/search', function (req, res, next) {
     res.render('searchEvents.ejs', { title: 'Search Events' });
 });
-
+router.get('/searchEvents.ejs', function(req,res,next) {
+    res.render('searchEvents.ejs', {title: 'Search Events', results: ''})
+})
 router.get('/searchEvents.ejs', function (req, res) {
     console.log("req", req.query)
     console.log("req.query.sedate", req.query.sedate)
@@ -76,6 +78,31 @@ router.delete('/searchEvents.ejs', function (req, res) {
             console.log('Error deleteEvent:' + JSON.stringify(err.message));
         });
     res.render('calendarPg', { title: "Something Deleted" })
+})
+
+router.get('/checkFree', function (req, res, next) {
+    res.render('checkFree.ejs', { title: 'Check Availability', results : '' });
+});
+router.get('/checkFree.ejs', function(req,res,next) {
+    res.render('checkFree.ejs', {title: 'Check Availability', results: ''});
+})
+router.get('/checkFree.ejs', function (req, res) {
+    console.log("Checking Availability")
+    cal.FreeBusy.query('primary', {
+        "timeMin": req.query.sedate + 'T' + req.query.stime + ':00-05:00',
+        "timeMax": req.query.edate + 'T' + req.query.etime + ':00-05:00',
+        'timeZone': (-(new Date().getTimezoneOffset() / 60)).toString().split("").join("0") + ':00',
+        "items": [{ "id": 'primary' }]
+    })
+        .then(resp => {
+            console.log('List of busy timings with events within defined time range: ');
+            console.log(resp);
+            res.render("checkFree", { title: "Check Availability", results: resp })
+        })
+        .catch(err => {
+            console.log('Error: checkBusy -' + err.message);
+        });
+    
 })
 module.exports = router;
 

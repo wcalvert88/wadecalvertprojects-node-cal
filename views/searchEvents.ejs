@@ -19,44 +19,17 @@
         <%= title %>
     </h1>
     <form name="form2" method="GET" action="/searchEvents.ejs">
-        <table>
-            <tr>
-                <td>Event Name (Optional)</td>
-                <td>
-                    <input type="text" id="ename" name="ename">
-                </td>
-            </tr>
-            <tr>
-                <td>Event Start Time</td>
-                <td>
-                    <input type="time" id="stime" name="stime">
-                </td>
-            </tr>
-            <tr>
-                <td>Event End Time</td>
-                <td>
-                    <input type="time" id="etime" name="etime">
-                </td>
-            </tr>
-            <tr>
-                <td>Event Start Date</td>
-                <td>
-                    <input type="date" id="sedate" name="sedate">
-                </td>
-            </tr>
-            <tr>
-                <td>Event End Date</td>
-                <td>
-                    <input type="date" id="edate" name="edate">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Search">
-                </td>
-            </tr>
-
-        </table>
+        <div>Event Name (Optional)
+            <input type="text" id="ename" name="ename"></div>
+        <div>Event Start Time
+            <input type="time" id="stime" name="stime"></div>
+        <div>Event End Time
+            <input type="time" id="etime" name="etime"></div>
+        <div>Event Start Date
+            <input type="date" id="sedate" name="sedate"></div>
+        <div>Event End Date
+            <input type="date" id="edate" name="edate"></div>
+        <div><input type="submit" value="Search"></div>
     </form>
     <ul>
         <% if (results) { %>
@@ -68,12 +41,9 @@
             <li>Event Place: <%= results[result].location %></li>
             <li>Event Start DateTime: <%= results[result].start.dateTime %></li>
             <li>Event End DateTime: <%= results[result].end.dateTime %></li>
-            <li><input type="button" value="Change"><input type="button" class="resultsDelete" value="Delete"></li>
+            <li><input type="button" class="resultsDelete" value="Delete"></li>
             </div>
-        <% } %>
-        
-        <% } %>
-            
+        <% }} %>
     </ul>
 </body>
 
