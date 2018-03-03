@@ -12,6 +12,7 @@ router.get('/calendarPg.ejs', function (req, res) {
     res.render('calendarPg', { title: 'Add Event' })
 })
 
+
 router.post('/calendarPg.ejs', function (req, res) {
     console.log("req.body.ename", req.body.ename);
     res.render('calendarPg', { title: 'Something posted' })
@@ -39,6 +40,21 @@ router.get('/search', function (req, res, next) {
 // router.get('/searchEvents.ejs', function(req,res,next) {
 //     res.render('searchEvents.ejs', {title: 'Search Events', results: ''})
 // })
+router.get('/api/add/events',function(req,res){
+    console.log("/api/add/events", req.query)
+    cal.Events.list('primary', {"q": req.query.q, "timeMin": req.query.timeMin, "timeMax": req.query.timeMax})
+        .then(json => {
+            //Success
+            console.log('List of events on calendar within time-range:');
+            console.log(json);
+            res.json( { results: json })
+            //res.json(json);
+        }).catch(err => {
+            //Error
+            console.log('Error: listSingleEvents -' + err.message);
+        });
+})
+
 router.get('/searchEvents.ejs', function (req, res) {
     console.log("req", req.query)
     console.log("req.query.sedate", req.query.sedate)
@@ -46,17 +62,14 @@ router.get('/searchEvents.ejs', function (req, res) {
     console.log("req.query.stime", req.query.stime),
         console.log("req.query.etime", req.query.etime)
     console.log("req.query.ename", req.query.ename)
-    cal.Events.list('primary', {
-        timeMin: req.query.sedate + 'T' + req.query.stime + ':00-05:00',
-        timeMax: req.query.edate + 'T' + req.query.etime + ':00-05:00',
-        q: req.query.ename ? req.query.ename : '',
-        singleEvents: false
-    })
+    cal.Events.list('primary', {"q": req.query.q, "timeMin": req.query.timeMin, "timeMax": req.query.timeMax}
+    )
         .then(json => {
             //Success
             console.log('List of events on calendar within time-range:');
             console.log(json);
             res.render('searchEvents', { title: 'Something Searched', results: json })
+            //res.json(json);
         }).catch(err => {
             //Error
             console.log('Error: listSingleEvents -' + err.message);
@@ -81,11 +94,37 @@ router.delete('/searchEvents.ejs', function (req, res) {
 })
 
 router.get('/checkFree', function (req, res, next) {
-    res.render('checkFree.ejs', { title: 'Check Availability', results : '' });
+    res.render('checkFree.ejs', { title: 'Check Availability', results: '' });
 });
-// router.get('/checkFree.ejs', function(req,res,next) {
+// router.get('/checkFree', function(req,res,next) {
 //     res.render('checkFree.ejs', {title: 'Check Availability', results: ''});
 // })
+
+
+router.get('/checkFree.ejs', function (req, res) {
+    var response = {
+        "timeMin": req.query.sedate + 'T' + req.query.stime + ':00-05:00',
+        "timeMax": req.query.edate + 'T' + req.query.etime + ':00-05:00',
+        'timeZone': (-(new Date().getTimezoneOffset() / 60)).toString().split("").join("0") + ':00',
+        "items": [{ "id": 'primary' }]
+    };
+    cal.FreeBusy.query('primary', response)
+        .then(resp => {
+            console.log('List of busy timings with events within defined time range: ');
+            console.log("stringify",JSON.stringify(resp));
+            res.render("checkFree", { title: "Check Availability", results: resp })
+            res.end(JSON.stringify(resp));
+        })
+        .catch(err => {
+            console.log('Error: checkBusy -' + err.message);
+        });
+    console.log("response", response)
+    // res.render('checkFree.ejs', { title: 'Check Availability', results: busyTimes })
+    //res.end(JSON.stringify(resp));
+
+})
+
+//Uncomment this to get it to work unRESTfully
 router.get('/checkFree.ejs', function (req, res) {
     console.log("Checking Availability")
     cal.FreeBusy.query('primary', {
@@ -102,6 +141,6 @@ router.get('/checkFree.ejs', function (req, res) {
         .catch(err => {
             console.log('Error: checkBusy -' + err.message);
         });
-    
+
 })
 module.exports = router;

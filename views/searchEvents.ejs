@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/ejs.min.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
     <h1>
         <%= title %>
     </h1>
-    <form name="form2" method="GET" action="/searchEvents.ejs">
+    <form name="form2" id="searchForm" method="GET" action="/searchEvents.ejs">
         <div><span class="formdiv">Event Name (Optional)</span>
             <input type="text" id="ename" name="ename" placeholder="Event Name (Optional)"></div>
         <div><span class="formdiv">Event Start Time </span>
@@ -32,19 +33,11 @@
         <div><button type="submit" value="Search">Search</button></div>
     </form>
     
-    <div class="resultsSection">
-        <% if (results) { %>
-        <% for (var result in results) { %>
-            <ul>
-                <li style="opacity: 0;"><span class="resultsInfo">Event Id: </span><span><%= results[result].id %></span></li>
-                <li><span class="resultsInfo">Event Name: </span><%= results[result].summary %></li>
-                <li><span class="resultsInfo">Event Description: </span><%= results[result].description %></li>
-                <li><span class="resultsInfo">Event Place: </span><%= results[result].location %></li>
-                <li><span class="resultsInfo">Event Start DateTime: </span><%= results[result].start.dateTime %></li>
-                <li><span class="resultsInfo">Event End DateTime: </span><%= results[result].end.dateTime %></li>
-                <li style="margin-bottom: 10px;"><button type="button" class="resultsDelete" value="Delete">Delete</button></li>
-            </ul>
-        <% }} %>
+    <div>
+        <% include ./footers/results.ejs %>
+        <script type="text/x-template" src="/templates/results.ejs" id="results">
+        </script>
+
     </div>
 </body>
 
