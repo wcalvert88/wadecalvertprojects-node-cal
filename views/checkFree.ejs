@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Check Free</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="./js/main.js"></script>
-    <script type="text/javascript" src="../js/ejs.min.js"></script>
+  <meta charset="utf-8">
+  <meta content="IE=edge"
+        http-equiv="X-UA-Compatible">
+  <title>Check Free</title>
+  <meta content="width=device-width, initial-scale=1"
+        name="viewport">
+  <link href="./css/main.css"
+        media="screen"
+        rel="stylesheet"
+        type="text/css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="../js/ejs.min.js"
+        type="text/javascript"></script>
 </head>
 <body>
-    <header><% include ./headers/header.ejs %></header>
-    <h1><%= title %></h1>
-    <form name="form3" id="checkForm" method="GET" action="/checkFree.ejs">
-        <div><span class="formdiv">Event Start Time </span>
-            <input type="time" id="stime" name="stime"></div>
-        <div><span class="formdiv">Event End Time </span>
-            <input type="time" id="etime" name="etime"></div>
-        <div><span class="formdiv">Event Start Date </span>
-            <input type="date" id="sedate" name="sedate"></div>
-        <div><span class="formdiv">Event End Date </span>
-            <input type="date" id="edate" name="edate"></div>
-        <div><button type="submit" value="Check Availability">Check Availability</button></div>
-    </form>
-
-    <div class="resultsSection">
-        <script type="text/x-template" src="/templates/checkFreeTemp.ejs" id="results">
-        </script>
+  <header>
+    <%include ./headers/header.ejs %>
+  </header>
+  <h1><%= title %></h1>
+  <form action="/checkFree.ejs"
+        id="checkForm"
+        method="get"
+        name="form3">
+    <div>
+      <span class="formdiv">Event Start Time</span> <input id="stime"
+           name="stime"
+           type="time">
     </div>
-    <!-- <div class="resultsSection">
-    <% if (results) { %>
-        <% for (var result in results) { %>
-            <div><span class="resultsInfo">Busy from: </span><%= new Date(results[result].start) %></div>
-            <div><span class="resultsInfo">to: </span><%= new Date(results[result].end) %><br /><br /></div>
-        <% } %>
-    <% } %>
-    </div> -->
+    <div>
+      <span class="formdiv">Event End Time</span> <input id="etime"
+           name="etime"
+           type="time">
+    </div>
+    <div>
+      <span class="formdiv">Event Start Date</span> <input id="sedate"
+           name="sedate"
+           type="date">
+    </div>
+    <div>
+      <span class="formdiv">Event End Date</span> <input id="edate"
+           name="edate"
+           type="date">
+    </div>
+    <div>
+      <button type="submit"
+           value="Check Availability">Check Availability</button>
+    </div>
+  </form>
+  <div class="resultsSection">
+    <script id="results"
+         src="/templates/checkFreeTemp.ejs"
+         type="text/x-template"></script>
+  </div>
 </body>
 </html>

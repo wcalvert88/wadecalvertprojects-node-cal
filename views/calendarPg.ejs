@@ -1,27 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Add Events</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="./js/main.js"></script>
+  <meta charset="utf-8">
+  <meta content="IE=edge"
+        http-equiv="X-UA-Compatible">
+  <title>Add Events</title>
+  <meta content="width=device-width, initial-scale=1"
+        name="viewport">
+  <link href="./css/main.css"
+        media="screen"
+        rel="stylesheet"
+        type="text/css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="./js/main.js"></script>
 </head>
 <body>
-    <header><% include ./headers/header.ejs %></header>
-    <h1><%= title %></h1>
-    <form name="form1" method="POST" id="addEventForm" action="/calendarPg.ejs">
-        <div><span class="formdiv">Event Name (Optional): </span><input type="text" id="ename" name="ename" placeholder="Event Name (Optional)"></div>
-        <div><span class="formdiv">Event Description (Optional): </span><input type="text" id="edesc" name="edesc" placeholder="Event Description (Optional)"></div>
-        <div><span class="formdiv">Event Place (Optional): </span><input type="text" id="eplace" name="eplace" placeholder="Event Place (Optional)"></div>
-        <div><span class="formdiv">Event Start Time: </span><input type="time" id="stime" name="stime"></div>
-        <div><span class="formdiv">Event End Time: </span><input type="time" id="etime" name="etime"></div>
-        <div><span class="formdiv">Event Start Date: </span><input type="date" id="sedate" name="sedate"></div>
-        <div><span class="formdiv">Event End Date: </span><input type="date" id="edate" name="edate"></div>
-        <button type="submit" id="searchBtn" value="Search">Search</button>
-    </form>
+  <header>
+    <%include ./headers/header.ejs %>
+  </header>
+  <h1><%= title %></h1>
+  <form action="/calendarPg.ejs"
+        id="addEventForm"
+        method="post"
+        name="form1">
+    <div>
+      <span class="formdiv">Event Name (Optional):</span> <input id="ename"
+           name="ename"
+           placeholder="Event Name (Optional)"
+           type="text">
+    </div>
+    <div>
+      <span class="formdiv">Event Description (Optional):</span> <input id="edesc"
+           name="edesc"
+           placeholder="Event Description (Optional)"
+           type="text">
+    </div>
+    <div>
+      <span class="formdiv">Event Place (Optional):</span> <input id="eplace"
+           name="eplace"
+           placeholder="Event Place (Optional)"
+           type="text">
+    </div>
+    <div>
+      <span class="formdiv">Event Start Time:</span> <input id="stime"
+           name="stime"
+           type="time">
+    </div>
+    <div>
+      <span class="formdiv">Event End Time:</span> <input id="etime"
+           name="etime"
+           type="time">
+    </div>
+    <div>
+      <span class="formdiv">Event Start Date:</span> <input id="sedate"
+           name="sedate"
+           type="date">
+    </div>
+    <div>
+      <span class="formdiv">Event End Date:</span> <input id="edate"
+           name="edate"
+           type="date">
+    </div><button id="searchBtn"
+          type="submit"
+          value="Search">Search</button>
+  </form>
 </body>
 </html>
