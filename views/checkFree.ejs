@@ -9,11 +9,12 @@
     <script
   src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="./js/main.js"></script>
+    <script type="text/javascript" src="../js/ejs.min.js"></script>
 </head>
 <body>
     <header><% include ./headers/header.ejs %></header>
     <h1><%= title %></h1>
-    <form name="form3" method="GET" action="/checkFree.ejs">
+    <form name="form3" id="checkForm" method="GET" action="/checkFree.ejs">
         <div><span class="formdiv">Event Start Time </span>
             <input type="time" id="stime" name="stime"></div>
         <div><span class="formdiv">Event End Time </span>
@@ -24,13 +25,18 @@
             <input type="date" id="edate" name="edate"></div>
         <div><button type="submit" value="Check Availability">Check Availability</button></div>
     </form>
+
     <div class="resultsSection">
+        <script type="text/x-template" src="/templates/checkFreeTemp.ejs" id="results">
+        </script>
+    </div>
+    <!-- <div class="resultsSection">
     <% if (results) { %>
         <% for (var result in results) { %>
             <div><span class="resultsInfo">Busy from: </span><%= new Date(results[result].start) %></div>
             <div><span class="resultsInfo">to: </span><%= new Date(results[result].end) %><br /><br /></div>
         <% } %>
     <% } %>
-    </div>
+    </div> -->
 </body>
 </html>
