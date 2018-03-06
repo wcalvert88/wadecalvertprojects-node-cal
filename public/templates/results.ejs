@@ -7,8 +7,8 @@
             <li><span class="resultsInfo">Event Name: </span><%= results[result].summary %></li>
             <li><span class="resultsInfo">Event Description: </span><%= results[result].description %></li>
             <li><span class="resultsInfo">Event Place: </span><%= results[result].location %></li>
-            <li><span class="resultsInfo">Event Start DateTime: </span><%= results[result].start.dateTime %></li>
-            <li><span class="resultsInfo">Event End DateTime: </span><%= results[result].end.dateTime %></li>
+            <li><span class="resultsInfo">Event Start DateTime: </span><%= (new Date(results[result].start.dateTime)).toLocaleString() %></li>
+            <li><span class="resultsInfo">Event End DateTime: </span><%= (new Date(results[result].end.dateTime)).toLocaleString() %></li>
             <li style="margin-bottom: 10px;"><button type="button" class="resultsDelete" value="Delete">Delete</button></li>
         </ul>
     <% }} %>
