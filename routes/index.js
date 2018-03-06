@@ -116,6 +116,7 @@ router.get('/checkFree', function (req, res) {
     })
         .then(resp => {
             console.log('List of busy timings with events within defined time range: ');
+            console.log(resp);
             res.render("checkFree", { title: "Check Availability", results: resp })
         })
         .catch(err => {
@@ -138,6 +139,7 @@ router.get('/api/check/events/',function(req,res){
     cal.FreeBusy.query('primary', response)
         .then(resp => {
             console.log('List of busy timings with events within defined time range: ');
+            console.log("api check", resp);
             res.json( { results: resp })
         })
         .catch(err => {

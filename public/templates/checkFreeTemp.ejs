@@ -1,8 +1,8 @@
 <div class="resultsSection">
     <% if (results) { %>
         <% for (var result in results) { %>
-            <div><span class="resultsInfo">Busy from: </span><%= new Date(results[result].start) %></div>
-            <div><span class="resultsInfo">to: </span><%= new Date(results[result].end) %><br /><br /></div>
+            <div><span class="resultsInfo">Busy from: </span><%= new Date(results[result].start).toLocaleString() %></div>
+            <div><span class="resultsInfo">to: </span><%= new Date(results[result].end).toLocaleString() %><br /><br /></div>
         <% } %>
     <% } %>
 </div>

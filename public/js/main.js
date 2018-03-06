@@ -110,6 +110,9 @@ $("#checkForm").submit(function(e) {
     success: function (msg) {
       console.log("Check worked")
       console.log($checkTemplate);
+      console.log("msg", msg);
+      console.log("msg.results", msg.results[0]);
+      console.log("msg after for loop", msg);
       var resultsSection = ejs.render($checkTemplate, msg)
       $('.resultsSection').append(resultsSection);
       document.getElementById("checkForm").reset();
