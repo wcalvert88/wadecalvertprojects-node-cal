@@ -119,7 +119,7 @@ router.delete('/searchEvents.ejs', function (req, res) {
 
 
 // CHECK EVENTS
-
+// hello
 
 router.get('/checkFree', function (req, res, next) {
     res.render('checkFree.ejs', { title: 'Check Availability', results: '' });
@@ -195,4 +195,6 @@ router.get('/checkFree.ejs', function (req, res) {
 //         });
 
 // })
+
 module.exports = router;
+
