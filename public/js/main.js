@@ -1,3 +1,6 @@
+// This function sets the id of the currently clicked section
+// of events to the event id.  Mainly used to delete the event 
+// from the calendar.
 function setEventId(that) {
   console.log("this", that);
   console.log("this parent parent", that.parent().parent());
@@ -10,8 +13,8 @@ function setEventId(that) {
 }
 
 $(document).ready(function () {
+  // Sets the delete button on the search page to delete events.
   $(".resultsDelete").click(function () {
-    debugger;
     setEventId($(this));
     $.ajax({
       type: "DELETE",
@@ -26,6 +29,9 @@ $(document).ready(function () {
       }
     });
   })
+
+  // This loads the template. So that the page will update
+  // when there are search results.
   var $template;
   $.ajax({
     type: "GET",
@@ -35,8 +41,9 @@ $(document).ready(function () {
     }
   })
   $("#searchForm").submit(function (e) {
+    // This stops the form from immediately submitting to the router.
     e.preventDefault();
-    // debugger;
+    // This sends the data to the api/search/events file.
     $.ajax({
       type: "GET",
       url: "./api/search/events",
@@ -46,6 +53,7 @@ $(document).ready(function () {
         timeMax: (new Date($("#edate").val() + ' ' + $("#etime").val())).toISOString(),
         singleEvents: false
       },
+      // If the request is successful it will render the ejs template with the results of the search.
       success: function (msg) {
         console.log("GET worked")
         console.log($template);
@@ -54,17 +62,12 @@ $(document).ready(function () {
       }
     })
   })
-  var $addTemplate;
-  $.ajax({
-    type: "GET",
-    url: "/templates/results.ejs",
-    success: function(temp){
-      $addTemplate = temp;
-    }
-  })
+
+  // This takes care of the adding the event functionality.
   $("#addEventForm").submit(function(e){
+    // This prevents the router from getting the data from the form immediately.
     e.preventDefault();
-    
+    // This POST's the data to the api/add/addEvents page
     $.ajax({
       type: "POST",
       url: "./api/add/addEvents",
@@ -78,12 +81,13 @@ $(document).ready(function () {
         "colorId": 1
       },
       success: function (msg) {
-        console.log("GET worked")
+        console.log("POST worked")
         document.getElementById("addEventForm").reset();
       }
     })
   })
 
+  // This is the template for the checkFree results just like the search template
   var $checkTemplate;
   $.ajax({
     type: "GET",
@@ -102,6 +106,7 @@ $("#checkForm").submit(function(e) {
       "timeMax" : (new Date($("#edate").val() + ' ' + $("#etime").val())).toISOString(),
       "timeZone" : (-(new Date().getTimezoneOffset() / 60)).toString().split("").join("0") + ':00',
     },
+    // Just like the search template except for some reason the form wouldn't reset after the search so I force it to reset.
     success: function (msg) {
       console.log("Check worked")
       console.log($checkTemplate);
