@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge"
+        http-equiv="X-UA-Compatible">
+  <title>Calendar Page</title>
+  <meta content="width=device-width, initial-scale=1"
+        name="viewport"><%include ./headers/head.ejs %>
+</head>
+<body>
+  <header>
+    <%include ./headers/header.ejs %>
+  </header>
+  <h1><%= title %></h1>
+  <div id="calendar"></div>
+  <script>
+    $('#calendar').fullCalendar({
+      // put your options and callbacks here
+      dayclick: function(){
+        alert("a day has been clicked");
+      },
+      events: function(start, end, timezone, callback) {
+          console.log("Is the ajax getting called")
+        var date = new Date();
+        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+       $.ajax({
+           type: "GET",
+          url: "./api/search/events",
+          dataType: 'json',
+          data: {
+            // our hypothetical feed requires UNIX timestamps
+            // start: firstDay.toISOString(),
+            // end: lastDay.toISOString()
+            q: '',
+        timeMin: (new Date(date.getFullYear(), date.getMonth(), 1).toISOString()),
+        timeMax: (new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString()),
+        singleEvents: false
+          },
+          success: function(doc) {
+            console.log("Is this working");
+            console.log("doc", doc)
+            console.log("doc.results", doc.results)
+
+            var events = [];
+            doc.results.forEach(function(result) {
+                console.log("result", result.start);
+                console.log("this", $(this))
+              events.push({
+                title: result.summary,
+                start: result.start,
+                end: result.end
+              });
+            });
+            console.log("events", events)
+            callback(events);
+          }
+        });
+     }
+    // eventSources: {
+    //     url: "./api/search/events?",
+    //     q: '',
+    //     timeMin: (new Date((new Date).getFullYear(), (new Date).getMonth(), 1).toISOString()),
+    //     timeMax: (new Date((new Date).getFullYear(), (new Date).getMonth() + 1, 0).toISOString()),
+    //     singleEvents:false
+    // }
+    })
+  </script>
+</body>
+</html>

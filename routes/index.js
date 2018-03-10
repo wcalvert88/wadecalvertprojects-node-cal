@@ -7,8 +7,8 @@ let cal = new CalendarAPI(CONFIG);
 // Main Page Add Events
 // This sets the main page path to Adding an event
 router.get('/', function (req, res, next) {
-    // This renders the calendarPg.ejs file to run on the main page.
-    res.render('calendarPg.ejs', { title: 'Add Event' });
+    // This renders the addEvents.ejs file to run on the main page.
+    res.render('addEvents', { title: 'Add Event' });
 });
 
 /*This sets the post method for the main page.
@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
     })
         .then(resp => {
             console.log('inserted event:');
-            res.render('calendarPg', { title: 'Something posted'})
+            res.render('addEvents', { title: 'Something posted'})
         })
         .catch(err => {
             console.log('Error: insertEvent-Other' + err.message);
@@ -147,5 +147,8 @@ router.get('/api/check/events/',function(req,res){
         });  
 })
 
+router.get('/calendar', function(req, res){
+    res.render('calendar.ejs', {title: 'Google Calendar'})
+})
 module.exports = router;
 

@@ -1,6 +1,11 @@
+// import mom from "moment"
+// import calendar from "fullcalendar"
+
 // This function sets the id of the currently clicked section
 // of events to the event id.  Mainly used to delete the event 
 // from the calendar.
+// import $ from jQuery
+
 function setEventId(that) {
   console.log("this", that);
   console.log("this parent parent", that.parent().parent());
@@ -36,7 +41,7 @@ $(document).ready(function () {
   $.ajax({
     type: "GET",
     url: "/templates/results.ejs",
-    success: function(temp){
+    success: function (temp) {
       $template = temp;
     }
   })
@@ -64,7 +69,7 @@ $(document).ready(function () {
   })
 
   // This takes care of the adding the event functionality.
-  $("#addEventForm").submit(function(e){
+  $("#addEventForm").submit(function (e) {
     // This prevents the router from getting the data from the form immediately.
     e.preventDefault();
     // This POST's the data to the api/add/addEvents page
@@ -92,32 +97,33 @@ $(document).ready(function () {
   $.ajax({
     type: "GET",
     url: "/templates/checkFreeTemp.ejs",
-    success: function(temp){
+    success: function (temp) {
       $checkTemplate = temp;
     }
   })
-$("#checkForm").submit(function(e) {
-  e.preventDefault();
-  $.ajax({
-    type: "GET",
-    url: '/api/check/events',
-    data: {
-      "timeMin" : (new Date(($("#sedate").val() + ' ' + $("#stime").val())).toISOString()),
-      "timeMax" : (new Date($("#edate").val() + ' ' + $("#etime").val())).toISOString(),
-      "timeZone" : (-(new Date().getTimezoneOffset() / 60)).toString().split("").join("0") + ':00',
-    },
-    // Just like the search template except for some reason the form wouldn't reset after the search so I force it to reset.
-    success: function (msg) {
-      console.log("Check worked")
-      console.log($checkTemplate);
-      console.log("msg", msg);
-      console.log("msg.results", msg.results[0]);
-      console.log("msg after for loop", msg);
-      var resultsSection = ejs.render($checkTemplate, msg)
-      $('.resultsSection').append(resultsSection);
-      document.getElementById("checkForm").reset();
-    }
+  $("#checkForm").submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "GET",
+      url: '/api/check/events',
+      data: {
+        "timeMin": (new Date(($("#sedate").val() + ' ' + $("#stime").val())).toISOString()),
+        "timeMax": (new Date($("#edate").val() + ' ' + $("#etime").val())).toISOString(),
+        "timeZone": (-(new Date().getTimezoneOffset() / 60)).toString().split("").join("0") + ':00',
+      },
+      // Just like the search template except for some reason the form wouldn't reset after the search so I force it to reset.
+      success: function (msg) {
+        console.log("Check worked")
+        console.log($checkTemplate);
+        console.log("msg", msg);
+        console.log("msg.results", msg.results[0]);
+        console.log("msg after for loop", msg);
+        var resultsSection = ejs.render($checkTemplate, msg)
+        $('.resultsSection').append(resultsSection);
+        document.getElementById("checkForm").reset();
+      }
+    })
   })
-})
 
+  $('#stime').timepicker();
 });
