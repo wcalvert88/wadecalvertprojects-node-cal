@@ -1,82 +1,32 @@
 const express = require('express');
 const app = express();
-const routes = require('./routes')
 const path = require('path')
-const searchCont = require('./controllers/search')
-const addCont = require('./controllers/add')
 const bodyParser = require('body-parser')
 const index = require('./routes/index')
-const searchEv = require('./routes/search');
-// Connect all our routes to our application
+
+// Choose port to use
 var port = process.env.PORT || 3000;
 
-
-// view engine setup
+//Sets the common folder for everything to do with the views
 app.set('views', path.join(__dirname, 'views'));
+
+// view engine setup as ejs
 app.set('view engine', 'ejs');
 
+// Use middleware that can analyze the json files
 app.use(bodyParser.json());
+
+// Not sure if it is needed but makes it so that form data is encoded as an object that is called by req.body
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// This sets the path for all static files like CSS/ JS files
+// pretty much all front end stuff. So it says it will be in the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Connect all our routes to our application
+// '/' is the root route for the 'index' router to use so can affect the whole app
 app.use('/', index);
-//app.use('/search', searchEv);
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   console.log(err.message);
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('./calendarPg', {title: "Error Occured"});
-// });
-
+// Listen for connections on the port
 app.listen(port)
 module.exports = app;
-
-// app.use('/', routes)
-// app.use('/search', searchCont)
-// app.use(express.static(path.join(__dirname,'public')))
-
-// app.use(express.static(path.join(__dirname, 'views')))
-// app.use(bodyParser.urlencoded({extended: false}))
-// app.get('/calendarPg.ejs', function(req,res){
-//     res.render('calendarPg.ejs', {title: "Add Event"})
-// })
-// app.get('/', function(req,res) {
-//     res.render('calendarPg.ejs', {title: "Add Event"})
-// //     res.sendFile('../controllers/mainAdd')
-// })
-
-
-// app.post('/', function(req,res) {
-//     res.render("File Sent to Calendar");
-// })
-// app.get('/search', function (req, res) {
-//     res.render('searchEvents.ejs', {title : 'Search Events'})
-// })
-
-// app.get('/checkFree', function (req, res) {
-//     res.render('checkFree.ejs', {title: 'Check Available'})
-// })
-
-// app.get('/delete', function (req, res) {
-//     res.render('deletePg.ejs', {title: 'Delete Event'})
-// })
-
-// addCont(app)
-// // searchCont(app)
-// // Turn on that server!
-// app.listen(port, () => { console.log('App listening on port 3000')})
-
-// module.exports = app;
