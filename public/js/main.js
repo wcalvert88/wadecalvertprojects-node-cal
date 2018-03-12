@@ -1,11 +1,6 @@
-// import mom from "moment"
-// import calendar from "fullcalendar"
-
 // This function sets the id of the currently clicked section
 // of events to the event id.  Mainly used to delete the event 
 // from the calendar.
-// import $ from jQuery
-
 function setEventId(that) {
   console.log("this", that);
   console.log("this parent parent", that.parent().parent());
