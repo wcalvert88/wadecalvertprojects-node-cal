@@ -15,57 +15,103 @@
   <h1><%= title %></h1>
   <div id="calendar"></div>
   <script>
-    $('#calendar').fullCalendar({
-      // put your options and callbacks here
-      dayclick: function(){
-        alert("a day has been clicked");
-      },
-      events: function(start, end, timezone, callback) {
-          console.log("Is the ajax getting called")
-        var date = new Date();
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-       $.ajax({
-           type: "GET",
-          url: "./api/search/events",
-          dataType: 'json',
-          data: {
-            // our hypothetical feed requires UNIX timestamps
-            // start: firstDay.toISOString(),
-            // end: lastDay.toISOString()
-            q: '',
-        timeMin: (new Date(date.getFullYear(), date.getMonth(), 1).toISOString()),
-        timeMax: (new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString()),
-        singleEvents: false
-          },
-          success: function(doc) {
+      $(document).ready(function() {
+          $.ajax({
+            url: "./api/search/events",
+            method: "GET",
+            dataType: 'json',
+            data: {
+                q: '',
+                timeMin: (new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1)).toISOString(),
+                timeMax: (new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0)).toISOString(),
+                singleEvents: false
+            }
+
+          }).done(function(doc) {
             console.log("Is this working");
             console.log("doc", doc)
             console.log("doc.results", doc.results)
 
             var events = [];
             doc.results.forEach(function(result) {
-                console.log("result", result.start);
-                console.log("this", $(this))
+                console.log("result.summary", result.summary);
+                console.log("result.start", result.start);
+                console.log("result.end", result.end)
               events.push({
                 title: result.summary,
-                start: result.start,
-                end: result.end
+                start: result.start.dateTime,
+                end: result.end.dateTime
               });
             });
-            console.log("events", events)
-            callback(events);
-          }
-        });
-     }
-    // eventSources: {
-    //     url: "./api/search/events?",
-    //     q: '',
-    //     timeMin: (new Date((new Date).getFullYear(), (new Date).getMonth(), 1).toISOString()),
-    //     timeMax: (new Date((new Date).getFullYear(), (new Date).getMonth() + 1, 0).toISOString()),
-    //     singleEvents:false
-    // }
-    })
+          
+          $('#calendar').fullCalendar({
+              events: events
+          });
+        })
+      });
+    // $('#calendar').fullCalendar({
+    //   // put your options and callbacks here
+    //   dayclick: function(){
+    //     alert("a day has been clicked");
+    //   },
+    // //   events: './api/search/events?q=&timeMin=2018-03-01T05%3A00%3A00.000Z&timeMax=2018-04-01T04%3A00%3A00.000Z&singleEvents=false',
+    // //   start: (new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1)).toISOString,
+    // //   end: (new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0)).toISOString
+    //   events: function(start, end, timezone, callback) {
+    //       console.log("Is the ajax getting called")
+    //     var date = new Date();
+    //     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    //     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //    $.ajax({
+    //        type: "GET",
+    //       url: "./api/search/events",
+    //       dataType: 'json',
+    //       data: {
+    //         // our hypothetical feed requires UNIX timestamps
+    //         // start: firstDay.toISOString(),
+    //         // end: lastDay.toISOString()
+    //         q: '',
+    //     timeMin: (new Date(date.getFullYear(), date.getMonth(), 1).toISOString()),
+    //     timeMax: (new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString()),
+    //     singleEvents: false
+    //       },
+    //       success: function(doc) {
+    //         console.log("Is this working");
+    //         console.log("doc", doc)
+    //         console.log("doc.results", doc.results)
+
+    //         var events = [];
+    //         doc.results.forEach(function(result) {
+    //             console.log("result.summary", result.summary);
+    //             console.log("result.start", result.start);
+    //             console.log("result.end", result.end)
+    //           events.push({
+    //             title: result.summary,
+    //             start: result.start,
+    //             end: result.end
+    //           });
+    //         });
+    //         console.log("events", events)
+    //         callback(events);
+    //       }
+    //     });
+    //  }
+    // // eventSources: [{
+    // //     url: "./api/search/events",
+    // //     type: "GET",
+    // //     data: {
+    // //     q: '',
+    // //     timeMin: (new Date((new Date).getFullYear(), (new Date).getMonth(), 1).toISOString()),
+    // //     timeMax: (new Date((new Date).getFullYear(), (new Date).getMonth() + 1, 0).toISOString()),
+    // //     singleEvents:false
+    // //     },
+    // //     error: console.log("something bad happened"),
+    // //     start: (new Date((new Date).getFullYear(), (new Date).getMonth(), 1).toISOString()),
+    // //     end: (new Date((new Date).getFullYear(), (new Date).getMonth() + 1, 0).toISOString()),
+    // //     color: 'blue',
+    // //     textColor: 'black',
+    // // }]
+    // })
   </script>
 </body>
 </html>
