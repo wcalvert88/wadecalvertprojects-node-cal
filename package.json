@@ -4,9 +4,14 @@
   "description": "google calendar project",
   "main": "app.js",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "fullcalendar": "^3.9.0",
     "google-auth-library": "^0.12.0",
     "googleapis": "^25.0.0",
+    "jquery": "^3.3.1",
+    "jquery-timepicker": "^1.3.3",
+    "moment": "^2.21.0",
     "node-google-calendar": "^1.1.1"
   },
   "devDependencies": {},

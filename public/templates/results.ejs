@@ -2,7 +2,7 @@
 <div class="resultsSection">
     <% if (results) { %>
     <% for (var result in results) { %>
-        <ul>
+        <ul class="showRes">
             <li style="opacity: 0;"><span class="resultsInfo">Event Id: </span><span class="eventId"><%= results[result].id %></span></li>
             <li><span class="resultsInfo">Event Name: </span><%= results[result].summary %></li>
             <li><span class="resultsInfo">Event Description: </span><%= results[result].description %></li>

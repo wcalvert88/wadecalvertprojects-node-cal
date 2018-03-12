@@ -9,7 +9,7 @@ Known Issues:
 
 localhost:3000 --brings you to the Add Event page. Which when you enter the information adds it to your Google Calendar.
 
-localhost:3000/calendarPg.ejs --does the same as localhost:3000
+localhost:3000/addEvents.ejs --does the same as localhost:3000
 
 localhost:3000/search --brings you to the Search Event page.  The event name is optional but the rest is required. This will bring you to localhost:3000/searchEvents.ejs with the results.
 

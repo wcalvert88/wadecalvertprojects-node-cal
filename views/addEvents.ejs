@@ -7,19 +7,14 @@
   <title>Add Events</title>
   <meta content="width=device-width, initial-scale=1"
         name="viewport">
-  <link href="./css/main.css"
-        media="screen"
-        rel="stylesheet"
-        type="text/css">
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="./js/main.js"></script>
+  <%include ./headers/head.ejs %>
 </head>
 <body>
   <header>
     <%include ./headers/header.ejs %>
   </header>
   <h1><%= title %></h1>
-  <form action="/calendarPg.ejs"
+  <form action="/addEvents.ejs"
         id="addEventForm"
         method="post"
         name="form1">
@@ -44,25 +39,31 @@
     <div>
       <span class="formdiv">Event Start Time:</span> <input id="stime"
            name="stime"
-           type="time">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event End Time:</span> <input id="etime"
            name="etime"
-           type="time">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event Start Date:</span> <input id="sedate"
            name="sedate"
-           type="date">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event End Date:</span> <input id="edate"
            name="edate"
-           type="date">
+           type="text">
     </div><button id="searchBtn"
           type="submit"
           value="Search">Search</button>
   </form>
+  <script>
+  $('#stime').timepicker();
+  $('#etime').timepicker();
+  $('#sedate').datepicker();
+  $('#edate').datepicker();
+  </script>
 </body>
 </html>

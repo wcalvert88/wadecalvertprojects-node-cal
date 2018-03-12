@@ -7,15 +7,7 @@
   <title>Search Events</title>
   <meta content="width=device-width, initial-scale=1"
         name="viewport">
-  <link href="../css/main.css"
-        media="screen"
-        rel="stylesheet"
-        type="text/css">
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="../js/main.js"
-        type="text/javascript"></script>
-  <script src="../js/ejs.min.js"
-        type="text/javascript"></script>
+        <%include ./headers/head.ejs %>
 </head>
 <body>
   <header>
@@ -35,22 +27,22 @@
     <div>
       <span class="formdiv">Event Start Time</span> <input id="stime"
            name="stime"
-           type="time">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event End Time</span> <input id="etime"
            name="etime"
-           type="time">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event Start Date</span> <input id="sedate"
            name="sedate"
-           type="date">
+           type="text">
     </div>
     <div>
       <span class="formdiv">Event End Date</span> <input id="edate"
            name="edate"
-           type="date">
+           type="text">
     </div>
     <div>
       <button type="submit"
@@ -63,5 +55,10 @@
          src="/templates/results.ejs"
          type="text/x-template"></script>
   </div>
+  <script>
+  $('#stime').timepicker();
+  $('#etime').timepicker();
+  $('#sedate').datepicker();
+  $('#edate').datepicker();</script>
 </body>
 </html>
