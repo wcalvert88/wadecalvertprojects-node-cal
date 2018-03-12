@@ -16,14 +16,18 @@
   <div id="calendar"></div>
   <script>
       $(document).ready(function() {
+          var thisYear = (new Date()).getFullYear();
+          var thisMonth = (new Date()).getMonth();
+          console.log("thisMonth", thisMonth);
+          function fillCalendar(thisYear, thisMonth) {
           $.ajax({
             url: "./api/search/events",
             method: "GET",
             dataType: 'json',
             data: {
                 q: '',
-                timeMin: (new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1)).toISOString(),
-                timeMax: (new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0)).toISOString(),
+                timeMin: (new Date(thisYear - 10, thisMonth, 1)).toISOString(),
+                timeMax: (new Date(thisYear + 10, thisMonth + 1, 0)).toISOString(),
                 singleEvents: false
             }
 
@@ -45,10 +49,110 @@
             });
           
           $('#calendar').fullCalendar({
-              events: events
+              events: events,
+              onMonthChange: function(month) {
+                  console.log("month", month);
+                  $.ajax({
+                    url: "./api/search/events",
+                    method: "GET",
+                    dataType: 'json',
+                    data: {
+                    q: '',
+                    timeMin: (new Date(thisYear, month, 1)).toISOString(),
+                    timeMax: (new Date(thisYear, month + 1, 0)).toISOString(),
+                    singleEvents: false
+                    }
+                  })
+              }
           });
+          $('.fc-prev-button').click(function() {
+            console.log("prev clicked");
+            thisMonth -= 1;
+            if (thisMonth < 0) {
+                thisMonth == 11;
+                thisYear--;
+            }
+            console.log("events", events);
+            events = [];
+            console.log("prev month", thisMonth);
+            
+            // console.log("new events", events);
+            $('#calendar').fullCalendar({
+                events: fillCalendar(thisYear, thisMonth)
+            });
+          })
         })
+
+    };
+    fillCalendar(thisYear, thisMonth);
       });
+  </script>
+  <!-- <script>
+    var thisYear = (new Date()).getFullYear();
+    var thisMonth = (new Date()).getMonth();
+    var myCal = $('#calendar').fullCalendar({
+      events: $.ajax({
+            url: "./api/search/events",
+            method: "GET",
+            dataType: 'json',
+            data: {
+                q: '',
+                timeMin: (new Date(thisYear, thisMonth, 1)).toISOString(),
+                timeMax: (new Date(thisYear, thisMonth + 1, 0)).toISOString(),
+                singleEvents: false
+            }
+
+          }).done(function(doc) {
+            console.log("Is this working");
+            console.log("doc", doc)
+            console.log("doc.results", doc.results)
+
+            var events = [];
+            doc.results.forEach(function(result) {
+                console.log("result.summary", result.summary);
+                console.log("result.start", result.start);
+                console.log("result.end", result.end)
+              events.push({
+                title: result.summary,
+                start: result.start.dateTime,
+                end: result.end.dateTime
+              });
+            });
+            console.log("events after loop",events)
+            $('#calendar').fullCalendar({
+                events: events
+            })
+        })
+         -->
+
+//         onMonthChange: function(month) {
+//                   console.log("month", month);
+//                   $.ajax({
+//                     url: "./api/search/events",
+//                     method: "GET",
+//                     dataType: 'json',
+//                     data: {
+//                     q: '',
+//                     timeMin: (new Date(thisYear, month, 1)).toISOString(),
+//                     timeMax: (new Date(thisYear, month + 1, 0)).toISOString(),
+//                     singleEvents: false
+//                     }
+//                   }).done(function(response){
+//                     var events = [];
+//                     doc.results.forEach(function(result) {
+//                         console.log("result.summary", result.summary);
+//                         console.log("result.start", result.start);
+//                         console.log("result.end", result.end)
+//                     events.push({
+//                         title: result.summary,
+//                         start: result.start.dateTime,
+//                         end: result.end.dateTime
+//                     });
+//                   })
+//               })
+//   }
+})
+console.log(myCal.events);
   </script>
 </body>
 </html>
