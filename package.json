@@ -1,6 +1,10 @@
 {
   "name": "calendarproject",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.9.x",
+    "npm" : "5.8.x"
+  },
   "description": "google calendar project",
   "main": "app.js",
   "dependencies": {
