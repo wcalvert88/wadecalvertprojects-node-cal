@@ -66,7 +66,7 @@ router.get('/search', function (req, res) {
     )
         .then(json => {
             //Success
-            console.log('List of events on calendar within time-range:');
+            console.log('List of events on calendar within time-range:', json);
             res.render('searchEvents', { title: 'Something Searched', results: json })
         }).catch(err => {
             //Error
